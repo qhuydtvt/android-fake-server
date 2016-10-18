@@ -30,8 +30,8 @@ def index():
     if request.method == "GET":
         return json.dumps(posts)
     if request.method == "POST":
-        title = request.get_json["title"]
-        content = request.get_json["content"]
+        title = request.get_json()["title"]
+        content = request.get_json()["content"]
         post = {"title": title, "content": content}
         add(post)
         return json.dumps({"code": "1", "message": "OK"})
