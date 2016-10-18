@@ -34,7 +34,7 @@ def index():
         content = request.form["content"]
         post = {"title": title, "content": content}
         add(post)
-        return json.dumps({“code”: "1", "message": "OK"})
+        return json.dumps({"code": "1", "message": "OK"})
 
 def add(post):
     post["id"] = len(posts)
