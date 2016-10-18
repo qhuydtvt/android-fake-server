@@ -1,16 +1,7 @@
-from flask import *
-from flask_restful import Resource, Api
+import json
+from flask import Flask, request
 
 app = Flask(__name__)
-api = Api(app=app)
-
-class HelloWorldApi(Resource):
-    def get(self):
-        return {"hello" : "world"}
-    def post(self):
-        json = request.get_json()
-        print(json)
-        return {"code" : 1, "message": "OK"}
 
 post1 = {
     "id": 0,
@@ -32,7 +23,18 @@ post3 = {
 
 posts = [post1, post2, post3] #Array
 
-api.add_resource(HelloWorldApi, '/')
+print(posts)
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "GET":
+        return json.dumps(posts)
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+        post = {"title": title, "content": content}
+        add(post)
+        return json.dumps({“code”: "1", "message": "OK"})
 
 def add(post):
     post["id"] = len(posts)
